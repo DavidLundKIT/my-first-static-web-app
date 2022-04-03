@@ -32,14 +32,14 @@ David is happy to welcome you to his new simple Azure Static Web app!
             </div>
             <div class="form-group">
                 <label for="pdfFile">PDF file path:</label>
-                <InputFile id="pdfFile" name="pdfFile" type="file" OnChange="@LoadFiles"/>
+                <InputFile id="pdfFile" name="pdfFile" type="file" OnChange="LoadFiles"/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Add watermark" class="btn btn-primary" />
             </div>
         </fieldset>
     </form>
-    @if (!string.IsNullOrWhiteSpace(errmsg))
+    @if (!string.IsNullOrWhiteSpace(@errmsg))
     {
         <div class="alert alert-danger" role="alert">
             @errmsg
@@ -47,23 +47,3 @@ David is happy to welcome you to his new simple Azure Static Web app!
     }
 </div>
 
-@code {
-    string errmsg = string.Empty;
-    private List<IBrowserFile> files = new ();
-
-    private void LoadFiles(InputFileChangeEventArgs ea)
-    {
-        foreach (var file in ea.GetMultipleFiles())
-        {
-            try
-            {
-                files.Add(file);
-                errmsg= file.Name;
-            }
-            catch (System.Exception ex)
-            {
-                errmsg = ex.Message;
-            }
-        }
-    }
-}
